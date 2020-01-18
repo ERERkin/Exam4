@@ -25,7 +25,7 @@ public class Main {
         //addPieceOfNews(pieceOfNews2);
         //System.out.println(getPieceOfNews("B"));
         //deletePieceOfNews("B");
-        //updatePieceOfNewsHead("A", "D");
+        //updatePieceOfNewsHead("D", "A");
         //updatePieceOfNewsText("B", "BB");
         //updatePieceOfNewsHeadAndText("C", "E", "EE");
     }
@@ -77,11 +77,11 @@ public class Main {
     }
 
     public static boolean updatePieceOfNewsHead(String head, String newHead) {
-        String SQL = "update news set head = ? where head = ?";
+        String SQL = "update news set head = ? where head like ?";
         try (Connection conn = connect();
              PreparedStatement statement = conn.prepareStatement(SQL)) {
             statement.setString(1, newHead);
-            statement.setString(2, head);
+            statement.setString(2, "%" + head + "%");
             statement.executeUpdate();
             System.out.println("Successfully update  piece of news head: " + head + " to " + newHead);
             return true;
@@ -92,11 +92,11 @@ public class Main {
     }
 
     public static boolean updatePieceOfNewsText(String head, String newText) {
-        String SQL = "update news set text = ? where head = ?";
+        String SQL = "update news set text = ? where head like ?";
         try (Connection conn = connect();
              PreparedStatement statement = conn.prepareStatement(SQL)) {
             statement.setString(1, newText);
-            statement.setString(2, head);
+            statement.setString(2, "%" + head + "%");
             statement.executeUpdate();
             System.out.println("Successfully update  piece of news text: " + head);
             return true;
@@ -107,12 +107,12 @@ public class Main {
     }
 
     public static boolean updatePieceOfNewsHeadAndText(String head,String newHead, String newText) {
-        String SQL = "update news set head = ?, text = ? where head = ?";
+        String SQL = "update news set head = ?, text = ? where head like ?";
         try (Connection conn = connect();
              PreparedStatement statement = conn.prepareStatement(SQL)) {
             statement.setString(1, newHead);
             statement.setString(2, newText);
-            statement.setString(3, head);
+            statement.setString(3, "%" + head + "%");
             statement.executeUpdate();
             System.out.println("Successfully update  piece of news text and head : " + head + " to " + newHead);
             return true;
