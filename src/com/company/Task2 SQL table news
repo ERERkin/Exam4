@@ -1,0 +1,5 @@
+create table news(
+    id serial primary key ,
+    head varchar(50) not null unique ,
+    text varchar(256) not null
+);
